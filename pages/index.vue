@@ -98,6 +98,7 @@
 
 <script>
 import axios from 'axios'
+const API_KEY = process.env.apiKey
 export default {
   name: 'IndexPage',
   data() {
@@ -128,7 +129,8 @@ export default {
         {
           hid: 'keywords',
           name: 'keywords',
-          content: 'movie, movies, stream, streaming, latest movies, trending movies, cinema, box office, netflix, prime video, apple tv',
+          content:
+            'movie, movies, stream, streaming, latest movies, trending movies, cinema, box office, netflix, prime video, apple tv',
         },
       ],
     }
@@ -136,14 +138,14 @@ export default {
   methods: {
     async getMovies() {
       const data = axios.get(
-        `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.apiKey}&language=en-US&page=1`
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`
       )
       const result = await data
       result.data.results.forEach((movie) => this.movies.push(movie))
     },
     async searchMovies() {
       const data = axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.apiKey}&language=en-US&page=1&query=${this.searchInput}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${this.searchInput}`
       )
       const result = await data
       result.data.results.forEach((movie) => this.searchedMovies.push(movie))
